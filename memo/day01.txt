@@ -1,0 +1,151 @@
+이메일 : eyunp07@naver.com
+
+문의시 - 제목 : DBMS 듣고있는 00 입니다.
+
+https://mybox.naver.com/share/list?shareKey=G4NjsxZyE9eZoWcGocCKL5mSUCVBfe294yMZ5rgkJrkB (참고파일?)
+
+새폴더생성 (DBMS19_SW) - util 과 memo 작성
+util 안에 DISK1폴더를 넣어준다
+설치시 주의사항 passward 는 간단하게 해서 잃어버리지 않게 해준다
+설치후 오류가 발생하면
+
+*************************************
+
+아이콘 - 속성 - 파일위치 열기- getstarted 우클릭 - 속성 - http://127.0.0.1:8081/apex/f?p=4950 이렇게 변경후 다시 실행한다.
+Application Express 클릭
+
+*************************************
+
+DB(DataBase) - 데이터들의 묶음
+DBMS(DataBase Management System)
+데이터를 관리할 수 있는 구체적인 시스템
+24시간 자료를 관리하기위함
+
+
+	엑셀				DBMS
+
+장점	직관적				많은 데이터를 쉽게 처리가능
+	익히기가 쉽다			복잡한 처리 가능
+					동시작업 가능
+
+단점	많은양의 데이터 처리시느려짐	쿼리 언어에 능숙해야한다.
+	다소 복잡한 내용을 처리하기 어려움	데이터 모델링시 지식과 숙련도가 필요하다
+	동시작업 불가능	
+
+
+DMBS의 종류
+
+오라클 - 교육용은 무료, 기업용은 유료 -> A/S 확실, 신뢰도 높음
+-> 24시간 서비스가 끊기면 안되는 기업에서 많이 사용
+
+MySQL - 무료로 사용 가능 -> 많은 기업들이 사용을 한다.
+
+MSSQL, MariaDB, MongoDB...등등
+
+oracle 다운로드 -> Products ->Oracle Databse -> Downlad 19c
+http://naver.me/x4idqX7h
+
+버전
+홀수 : 안정된 버전
+짝수 : 테스트 버전
+수업버전 11g
+최신버전 21c
+
+i : internet -> 내 pc에만 저장되는 게 아니라 인터넷에 따라서 다른 컴퓨터의 데이터를 교환 할 수 있다.
+g : grid -> 바둑판 모양처럼 데이터를 표 형태로 만들어서 관리하겠다.
+c : cloud -> 서버를 두더라도 가상서버를 만들어서 관리 할 수 있다는 것.
+점점 클라우드를 많이 사용하는 이유는 데이터의 용량이 커지기 때문이다.
+
+계정
+대표적으로 세가지로 분류할 수 있습니다.
+
+SYS -> 모든 명령어에 대한 권한을 갖고 있는 계정
+
+SYSTEM -> SYS보다는 권한을 덜 갖고있는 계정
+
+일반 계정 : 위의 계정으로부터 부여받은 권한만 사용 가능
+(hr,op,he,scott...)
+
+===========================================
+
+실행방법 - >윈도우+R - cmd열기 
+
+(접속법)
+sqlplus sys as sysdba 입력
+설치시 입력했던 비빌번호 1111 작성(작성시 안보임)
+show user입력 -> USER is"SYS" 가띄워진다
+
+alter user system identified by 1234; 입력 -> User altered.
+           (계정/ 비밀번호)
+conn system/1234; 입력 -> Connected.
+conn hr / hr; -> 오류
+
+(hr계정의 언락) alter -> 바꾸기전의 사용하는 문구?
+alter user hr account unlock;
+show user -> 안나옴
+conn system/1234 (다시 접속)
+alter user hr account unlock;
+
+alter user hr identified by hr;
+conn hr/hr; 입력 -> connected.
+show user 입력 ->"HR" (이름이 SYS -> HR로 변경)
+
+===========================================
+
+권한부여시 sys 또는 system으로 접속상태여야 권한부여가 가능하다.
+
+(접속법)
+win + r -> cmd입력 후 확인
+sqlplus sys as sysdba -> 관리자 계정으로 로그인 하겠다
+이외 계정 sqlplus 이이디/비번 (system/1234)   관리자가 아닌 계정은 ;을 붙이지 않는다.
+설치시 입력했던 비빌번호 1111 작성 후 엔터(작성시 안보임)
+
+- 다른계정으로 로그인하는법
+conn 아이디/비밀번호;
+
+- 계정 잠금 푸는법
+alter user 아이디 account unlock;
+
+- 계정 비밀번호 바꾸는법
+alter user 아이디 identified by 비밀번호;
+
+- IDE(통합개발환경) Integrated Development Environment
+코딩, 디버그, 컴파일, 배포 등 프로그램 개발에 관련된 모든 작업을 하나의 소프트웨어에서 처리하는 환경
+
+*********************************************************
+
+- DBeaver (다운해서 실행하기위해 java가 필요하다)
+
+다운로드 -아래Previous 5.2.5버전 - win32 64.zip - util파일에 넣어준다.
+실행후 오라클 클릭!
+host :  localhost(원래는 ip주소) - database : XE - user name : hr - password : hr (작성해준다)
+test Connection 클릭 
+Oracle 11g drivers 선택후 Add JARs선택
+C:\oraclexe\app\oracle\product\11.2.0\server\jdbc\lib 경로 아래경로란 동일
+c드라이버 - oraclexe - app - oracle - product - 11.2.0 - server - jdbc - lib - ojdbc6.jar 선택
+(만약 실행이 안된다면 오라클 cmd에서 아이디 변경여부를 확인해보기!!)
+
+- cmd -> java -version 없으면
+java를 다운받는다 오라클에서 다운가능
+
+
+********************************************************
+
+- SQL언어
+DBMS와 소통을 하기 위해 사용하는 언어
+SQL문이라고도 하고 쿼리문 이라고도 한다.
+
+- 인터프리터언어
+한줄씩 번역을 하고 빈번한 수정이 있을 떄 효율적이다.
+전체를 실행하지 않고 부분만 실행하고 싶을 때도 편리한 언어다.
+
+
+
+
+
+
+
+
+
+
+	  	

@@ -1,0 +1,205 @@
+Dbeaver 접속 - Oracle - Schemas - HR - Tables - EMPLOYEES
+
+DBMS에서는 데이터를 표 모양으로 관리를 한다.
+이러한 표를 테이블이라고 부릅니다.
+
+table A 
+가로(행, row, 한명에대한 정보)
+세로(열, column, 한가지에 대한 정보)
+이러한 정보를 포함한걸 스키마라고한다 (규칙이 잘 짜여져 있다)
+
+번호	이름	나이
+1	홍길동	30
+2	김개똥	28
+3	신용권	50
+
+USER( table )
+아이디		이름		나이
+(중복불가)	(중복가능)	(중복가능)
+hgd123		홍길동		40
+ggd123		김개똥		39
+syg123		신용권		32
+hgd234		홍길동		40
+
+ORDER( table )
+구매번호		아이디		구매날짜		상품명
+(중복불가)(PK)	(중복가능)(FK)	(중복가능)(FK)	(중복가능)(FK)
+20230316001	hgd123		20230316	공기청정기
+20230316002	ggd123		20230315	목도리
+20230316003	syg123		20230314	빨래집게
+
+
+하나의 테이블에서 죽복이 없고 값이 무조건 들어있어야 하는 조건을 PK라고 한다.
+Primary Key > Column( 열 )에다 지정
+	      고유한 값이 들어간다(겹칠수 없다.)
+	      값을 비워둘수 없다.
+
+Foreign Key > 다른 테이블의 PK를 참고한다.
+	       다른 테이블과 관계를 맺을 때 사용한다. ( 아이디를통해 이름과 나이를 조회!! )
+	       중복이 가능하다.
+
+SQL문
+ - DDL(Date Definition Language) : 데이터 정의어
+ - 테이블의 조작, 제어와 관령된 쿼리문
+	1. CREATE : 테이블 생성
+		CREATE TABLE 테이블명 (
+   		컬럼명1 자료형(길이),
+   		컬럼명2 자료형(길이);
+ 	 	);
+
+		예시 )
+		CREATE TABLE TBL_MEMBER(
+		NAME VARCHAR2(10),
+		AGE NUMBER(3)
+		);
+	2. DROP : 삭제(복구가 안됩니다.)
+		DROP TABLE TBL_MEMBER;
+	3. ALTER : 수정
+		- 테이블명 수정 : RENAME TO 새로운 테이블명
+		- 컬럼 추가 : ADD(새로운컬럼명 컬럼타입)
+		- 컬럼명 변경 : RENAME COLUMN 컬럼명 TO 새로운 컬럼명
+		- 컬럼 삭제 : DROP COLUMN 컬럼명
+		- 제약조건 삭제
+****************
+
+		-- ALTER 테이블명 DROP CONSTRAINT 제약조건 이름;
+		ALTER TABLE TBL_CAR DROP CONSTRAINT CAR_PK;
+
+		-- 제약조건 추가하기
+		-- ALTER TABLE 테이블명 ADD CONSTRAINT 제약조건이름 제약조건종류(컬럼명);
+		ALTER TABLE TBL_CAR ADD CONSTRAINT CAR_PK PRIMARY KEY(ID);
+
+****************
+
+** date 자료 넣는법 **
+- ER Diagram - 우클릭 - generate SQL - insert - use체크 빼고  copy
+				- select (조회)
+
+	4. TRUNCATE : 테이블 안에 있는 모든 데이터 삭제하기
+	
+ - DML
+ - TCL
+ - DCL
+
+자료형(TYPE)
+
+숫자  > 	NUMBER(자리수) : 정수
+	NUMBER(자리수, 소수점 자리수) : 실수
+	NUMBER : 최대 38자리 정수까지 입력이 가능
+
+문자열 > CHAR(길이) : 고정형
+	전화번호, 주민등록번호처럼 글자수가 변하지 않는것들에 사용
+	VARCHAR2(길이) : 가변형
+	값의 길이만큼 공간이 배정된다.
+	글자수에 변화가 있는 값을 넣는다.
+
+날짜  >	DATE : FORMAT에 맞춰서 날짜를 저장하는 타입
+	"2023.03.16"
+	"2023-03-16"
+	"2023.02"
+
+================================
+
+- DBeaber 실행후
+
+- Scripts - ctrl + ] (파일생성) - 파일이름변경( F2 ) 
+
+- SELECT * FROM employees; 입력
+( ctrl + 엔터 ) - 아래창에서 데이터를 조회 할 수 있다.
+
+-- (주석표시)
+/**/ (범위주석)
+
+- 기본TABLE 틀( 빈공간을 만들면 오류가날수 있음 )
+( 한글작성X )
+
+- table 에서 columns 와 constraints 를 확인하여 제약조건을 확인해본다.
+
+
+https://github.com/dbeaver/dbeaver/tree/devel/product/localRepository
+
+==============================================================
+
+2 DAY
+-- 주석 : 개발자의 의견이나 설명을 달아놓는것
+-- 실행했을 때 프로그램이 해석하지 못합니다.
+-- 한줄 주석 : --
+-- 여러줄 주석 : /*내용*/
+
+ /*
+  * CREATE TABLE 테이블명 (
+  * 	컬럼명1 자료형(길이),
+  * 	컬럼명2 자료형(길이);
+  * );
+  * 	
+  */
+CREATE TABLE TBL_MEMBER(
+	NAME VARCHAR2(10),
+	AGE NUMBER(3)
+);
+
+-- TBL_MEMBER 테이플 삭제하기
+-- DROP TABLE 테이블명;
+DROP TABLE TBL_MEMBER;
+
+-- 자동차 테이블 생성
+-- 제약조건 : 테이블을 생성할 때 특정 컬럼에 조건을 부여하여 들어오는 데이터를 검사한다
+-- 제약조건 만드는법 
+-- CONSTRAINT 제약조건명 제약조건종류 (컬럼명);
+-- CONSTRAINT CAR_PK PRIMARY KEY(ID);
+CREATE TABLE TBL_CAR(
+	ID NUMBER,
+	BRAND VARCHAR2(100),
+	COLOR VARCHAR2(100),
+	PRICE NUMBER,
+	CONSTRAINT CAR_PK PRIMARY KEY(ID)
+);
+
+-- 제약조건 삭제
+-- ALTER 테이블명 DROP CONSTRAINT 제약조건 이름;
+ALTER TABLE TBL_CAR DROP CONSTRAINT CAR_PK;
+
+-- 제약조건 추가하기
+-- ALTER TABLE 테이블명 ADD CONSTRAINT 제약조건이름 제약조건종류(컬럼명);
+ALTER TABLE TBL_CAR ADD CONSTRAINT CAR_PK PRIMARY KEY(ID);
+
+-- 동물 테이블
+CREATE TABLE TBL_ANIMAL(
+	ID NUMBER PRIMARY KEY,
+	"TYPE" VARCHAR2(100),-- 오라클에서는 TYPE이 명령어이기 때문에 컬럼의 이름으로 사용하고 싶다면 ""안에 넣어야 한다.
+	AGE NUMBER(2),
+	FEED VARCHAR2(100)
+);
+
+-- 기존 제약조건 삭제하기
+ALTER TABLE TBL_ANIMAL DROP CONSTRAINT SYS_C006999;
+
+-- 학생 테이블 생성
+--  DEFAULT와 CHECK 제약조건
+CREATE TABLE TBL_STUDENT(
+	ID NUMBER, -- 학번
+	NAME VARCHAR2(100),
+	MAJOR VARCHAR2(100),-- DEFAULT(기본값), NOT NULL(비워둘 수 없다)
+	GENDER CHAR(1) DEFAULT 'W' NOT NULL CONSTRAINT BAN_CHAR CHECK(GENDER = 'M' OR GENDER = 'W'),
+	BIRTH DATE CONSTRAINT BAN_DATE CHECK(BIRTH >= TO_DATE('1980-01-01','YYYY-MM-DD')),
+	CONSTRAINT STD_PK PRIMARY KEY(ID)
+);
+
+INSERT INTO TBL_STUDENT
+(ID, NAME, MAJOR, GENDER, BIRTH)
+VALUES(0, '홍길동', '컴퓨터공학', 'W' , TO_DATE('1980-01-02','YYYY-MM-DD'));
+
+SELECT ID, NAME, MAJOR, GENDER, BIRTH
+FROM TBL_STUDENT;
+
+INSERT INTO TBL_STUDENT
+(ID, NAME, MAJOR, GENDER, BIRTH)
+VALUES(1, '홍길동', '컴퓨터공학', 'W' , TO_DATE('1980-01-02','YYYY-MM-DD'));
+
+INSERT INTO TBL_STUDENT
+(ID, NAME, MAJOR, GENDER, BIRTH)
+VALUES(2, '홍길동', '컴퓨터공학', 'M' , TO_DATE('1980-01-02','YYYY-MM-DD'));
+
+INSERT INTO TBL_STUDENT
+(ID, NAME, MAJOR, GENDER, BIRTH)
+VALUES(3, '홍길동', '컴퓨터공학', 'M' , TO_DATE('2000-01-02','YYYY-MM-DD'));
