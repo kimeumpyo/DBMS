@@ -1,0 +1,82 @@
+-- 주석 : 개발자의 의견이나 설명을 달아놓는것
+-- 실행했을 때 프로그램이 해석하지 못합니다.
+-- 한줄 주석 : --
+-- 여러줄 주석 : /*내용*/
+
+ /*
+  * CREATE TABLE 테이블명 (
+  * 	컬럼명1 자료형(길이),
+  * 	컬럼명2 자료형(길이);
+  * );
+  * 	
+  */
+CREATE TABLE TBL_MEMBER(
+	NAME VARCHAR2(10),
+	AGE NUMBER(3)
+);
+
+-- TBL_MEMBER 테이플 삭제하기
+-- DROP TABLE 테이블명;
+DROP TABLE TBL_MEMBER;
+
+-- 자동차 테이블 생성
+-- 제약조건 : 테이블을 생성할 때 특정 컬럼에 조건을 부여하여 들어오는 데이터를 검사한다
+-- 제약조건 만드는법 
+-- CONSTRAINT 제약조건명 제약조건종류 (컬럼명);
+-- CONSTRAINT CAR_PK PRIMARY KEY(ID);
+CREATE TABLE TBL_CAR(
+	ID NUMBER,
+	BRAND VARCHAR2(100),
+	COLOR VARCHAR2(100),
+	PRICE NUMBER,
+	CONSTRAINT CAR_PK PRIMARY KEY(ID)
+);
+
+-- 제약조건 삭제
+-- ALTER 테이블명 DROP CONSTRAINT 제약조건 이름;
+ALTER TABLE TBL_CAR DROP CONSTRAINT CAR_PK;
+
+-- 제약조건 추가하기
+-- ALTER TABLE 테이블명 ADD CONSTRAINT 제약조건이름 제약조건종류(컬럼명);
+ALTER TABLE TBL_CAR ADD CONSTRAINT CAR_PK PRIMARY KEY(ID);
+
+-- 동물 테이블
+CREATE TABLE TBL_ANIMAL(
+	ID NUMBER PRIMARY KEY,
+	"TYPE" VARCHAR2(100),-- 오라클에서는 TYPE이 명령어이기 때문에 컬럼의 이름으로 사용하고 싶다면 ""안에 넣어야 한다.
+	AGE NUMBER(2),
+	FEED VARCHAR2(100)
+);
+
+-- 기존 제약조건 삭제하기
+ALTER TABLE TBL_ANIMAL DROP CONSTRAINT SYS_C006999;
+
+-- 학생 테이블 생성
+--  DEFAULT와 CHECK 제약조건
+CREATE TABLE TBL_STUDENT(
+	ID NUMBER, -- 학번
+	NAME VARCHAR2(100),
+	MAJOR VARCHAR2(100),-- DEFAULT(기본값), NOT NULL(비워둘 수 없다)
+	GENDER CHAR(1) DEFAULT 'W' NOT NULL CONSTRAINT BAN_CHAR CHECK(GENDER = 'M' OR GENDER = 'W'),
+	BIRTH DATE CONSTRAINT BAN_DATE CHECK(BIRTH >= TO_DATE('1980-01-01','YYYY-MM-DD')),
+	CONSTRAINT STD_PK PRIMARY KEY(ID)
+);
+
+INSERT INTO TBL_STUDENT
+(ID, NAME, MAJOR, GENDER, BIRTH)
+VALUES(0, '홍길동', '컴퓨터공학', 'W' , TO_DATE('1980-01-02','YYYY-MM-DD'));
+
+SELECT ID, NAME, MAJOR, GENDER, BIRTH
+FROM TBL_STUDENT;
+
+INSERT INTO TBL_STUDENT
+(ID, NAME, MAJOR, GENDER, BIRTH)
+VALUES(1, '홍길동', '컴퓨터공학', 'W' , TO_DATE('1980-01-02','YYYY-MM-DD'));
+
+INSERT INTO TBL_STUDENT
+(ID, NAME, MAJOR, GENDER, BIRTH)
+VALUES(2, '홍길동', '컴퓨터공학', 'M' , TO_DATE('1980-01-02','YYYY-MM-DD'));
+
+INSERT INTO TBL_STUDENT
+(ID, NAME, MAJOR, GENDER, BIRTH)
+VALUES(3, '홍길동', '컴퓨터공학', 'M' , TO_DATE('2000-01-02','YYYY-MM-DD'));
