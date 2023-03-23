@@ -36,7 +36,7 @@ SET POT_SHAPE = '물레방아'
 WHERE FLOWER_NAME = '할미꽃';
 
 --================================================
-
+-- 1
 -- PLAYER 테이블의 모든 데이터 조회하기
 SELECT * FROM PLAYER;
 
@@ -51,8 +51,7 @@ SELECT * FROM PLAYER
 WHERE WEIGHT >= 70 AND WEIGHT <= 80;
 
 SELECT * FROM PLAYER 
-WHERE WEIGHT BETWEEN 70 AND 80;
--- BETWEEN은 이상 이하의 경우에만 사용이 가능
+WHERE WEIGHT BETWEEN 70 AND 80; -- BETWEEN은 이상 이하의 경우에만 사용이 가능
 
 -- PLAYER 테이블에서 TEAM_ID가 'K03'이고 HEIGHT가 180 보다 작은 선수 조회하기
 SELECT * FROM PLAYER 
@@ -65,6 +64,18 @@ WHERE HEIGHT > 170 AND WEIGHT > 80;
 -- PLAYER 테이블에서 TEAM_ID가 'K02' 또는 'K07'이고 포지션은 'MF'인 선수 검색
 SELECT * FROM PLAYER
 WHERE (TEAM_ID = 'K02' OR TEAM_ID = 'K07') AND "POSITION" = 'MF';
+
+SELECT * FROM PLAYER
+WHERE TEAM_ID IN ('K02','K07') AND "POSITION" = 'MF'; -- 간결하게표시
+
+-- 2
+-- 사원(EMPLOYEES)테이블 조회하기
+SELECT * FROM EMPLOYEES;
+
+--사원테이블에서 이름, 직종, 급여를 조회하세요
+SELECT FIRST_NAME, JOB_ID, SALARY FROM EMPLOYEES;
+
+
 
 
 
