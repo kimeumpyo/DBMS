@@ -72,10 +72,16 @@ WHERE TEAM_ID IN ('K02','K07') AND "POSITION" = 'MF'; -- 간결하게표시
 -- 사원(EMPLOYEES)테이블 조회하기
 SELECT * FROM EMPLOYEES;
 
---사원테이블에서 이름, 직종, 급여를 조회하세요
+-- 사원테이블에서 이름, 직종, 급여를 조회하세요
 SELECT FIRST_NAME, JOB_ID, SALARY FROM EMPLOYEES;
 
+SELECT EMPLOYEE_ID,FIRST_NAME,JOB_ID,SALARY,COMMISSION_PCT*SALARY -- 보너스비율 * 급여를통해 나타내준다
+FROM EMPLOYEES;
 
+-- 사원테이블에서 급여가 10000이상인 사원들의 사번, 이름, 급여순으로 출력
+SELECT EMPLOYEE_ID, FIRST_NAME, SALARY FROM EMPLOYEES WHERE SALARY >= 10000 ;
 
-
+-- 사원테이블에서 이름이 Michael인 사원의 사번, 이름을 조회
+SELECT EMPLOYEE_ID, FIRST_NAME FROM EMPLOYEES
+WHERE FIRST_NAME ='Michael';
 
