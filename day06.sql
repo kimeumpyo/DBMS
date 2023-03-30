@@ -100,6 +100,21 @@ SELECT PLAYER_NAME "선수이름", NVL("POSITION",'미정') "포지션" FROM PLAYER;
 	-- 진급 예정 날짜를 조회하세요
 	SELECT EMPLOYEE_ID, FIRST_NAME, ADD_MONTHS(HIRE_DATE,42) FROM EMPLOYEES
 	WHERE  EMPLOYEE_ID LIKE '120';
+
+	-- 두 날짜 사이의 개월수를 구해주는 함수 : MONTHS_BETWEEN()
+	-- 2022/03/30부터 오늘 사이의 개월 수 구하기
+	SELECT MONTHS_BETWEEN(SYSDATE, TO_DATE('2022/03/30','YYYY/MM/DD'))"날짜" FROM DUAL;
+
+	-- 모든 사원들이 입사일로부터 몇개월이 경과했는지, 이름, 입사일, 개월순으로 출력
+	SELECT * FROM EMPLOYEES;
+	SELECT FIRST_NAME, HIRE_DATE, TRUNC(MONTHS_BETWEEN(SYSDATE,HIRE_DATE),1)"개월수" FROM EMPLOYEES;
+
+	-- 오늘까지 입사기간이 160개월 이상인 사원들의 이름, 입사일, 입사후 개월수를 출력
+	--    /    이름         /  입사일        /            입사후 개월수                                                         /
+	SELECT FIRST_NAME, HIRE_DATE, TRUNC(MONTHS_BETWEEN(SYSDATE,HIRE_DATE))"개월수" FROM EMPLOYEES
+	--				오늘까지 입사기간이 160 이상인 사원
+	WHERE TRUNC(MONTHS_BETWEEN(SYSDATE,HIRE_DATE))>=160;
+	
 	
 	
 	
