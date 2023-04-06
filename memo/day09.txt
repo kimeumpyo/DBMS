@@ -1,0 +1,82 @@
+day09
+
+[JOIN] :
+	여러테이블에 흩어져 있는 정보중 사용자가 필요한 정보만 가져와서 
+	가상의 테이블처럼 만들고 결과를 보여주는것.
+
+	조회하려고 하는 테이블들이 너무 많이 쪼개져있으면 속도가 느리기 때문에
+	입력, 수정, 삭제의 성능을 향상시키기 위해서 사용된다.
+
+	- 내부조인(INNER JOIN)
+	조건이 일치하는 값이 두 테이블에 모두 존대할 때 조회
+
+	- 전제조건
+	PK와 FK로 연결이 되어있어야 한다.
+	
+	FROM 테이블A INNER JOIN 테이블B ON 조건식 
+	-- INNER은 생략이 가능
+
+	- 등가조인: ON절에 등호가 있을 때
+	- 비등가조인 : ON정레 등호가 없을 때 (크다, 작다)
+
+내츄럴 조인(NATURAL JOIN) :
+	INNER JOIN과 다르게 조건을 명시하지 않아도 두 테이블간 동일한 이름의 컬럼을
+	자동으로 찾아 조인한다.
+	컬럼의 이름 뿐만 아니라 타입이 모두 같아야한다.
+
+외부조인(Outer join)
+	두 개의 테이블 중 조건이 거짓이라도 지정한 테이블의 모든 정보가 검색되어야 할 때 사용된다.
+
+	- left outer join		(//(  )  ) 왼쪽부분
+	- right outer join		(  (  )//) 오른쪽부분
+	- full outer join		(//(  )//) 중복되는 자리 빼고!
+	- self join 		자기 자신과 조인을 하는 형태
+
+----------------------------------------------------------------------------------------------
+
+	- DDL	(CREATE, ALTER, DROP)
+	- DML 	(SELECT, INSERT, UPDATE, DELETE)
+	- TCL 	(COMMIT, ROLLBACK)
+
+	- DCL 	(Date Control Language) : 데이터 제어어
+	- GRANT : 권한 부여
+	- REVOKE : 권한 강탈
+
+view : 
+	기존의 테이블은 그대로 놔둔 채
+	필요한 컬럼들 및 새로운 컬럼을 만든 가상의 테이블
+	실제 테이터가 저장되는 것 은 아니지만
+	view를 통해서 데이터를 관리할 수 있다.
+
+	view의 특징
+
+	독립성 : 다른곳에서 변경하지 못함
+	편리성 : 긴 쿼리문을 짧게 사용할 수 있다.
+	보안성 : 짧게 만들기 떄문에 기존의 쿼리는 보이지 않는다.
+	
+----------------------------------------------------------------------------------------------	
+	- CMD
+	SELECT USERNAME FROM DBA_USERS; 계정조회
+	C:\oraclexe\app\oracle\product\11.2.0\server\rdbms\admin 경로
+	scott.sql 파일을 cmd에 @치고 넣기 
+	alter user scott identified by tiger
+	conn scott/tiger
+	create user baby identified by baby; - 안됨(권한이없음)
+	
+	conn sys as sysdba (sys로 로그인)
+	1234 ( 비밀번호)
+	grant create user to scott; -> Grant succeeded. (권한주기성공)
+	
+	conn system/1234;
+	grant create session to baby;
+	conn baby/baby;
+	
+	conn system/1234
+	revoke create user from scott; (권한 뺏어오기) -> Revoke succeeded.
+	create user flower identified by flower; -> insufficient privileges ( scott 은 권한이없다 )
+
+	
+	
+	
+
+	
