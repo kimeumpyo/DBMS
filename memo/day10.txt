@@ -1,0 +1,74 @@
+
+함수 : 원하는 기능을 모아둔 묶음
+
+프로시저(PROCEDURE)
+
+	add	(x, y) 	=	 x + y;
+
+	함수명	매개변수		리턴값
+
+	add(1, 2) = 3;
+
+	x, y의 역할은 우리가 임의로 넣어준 숫자를 add라는 함수와 
+	연결해주는 변수
+	
+	/*
+	(기본형)
+	<정의>
+	CREATE OR REPLACE PROCEDURE 프로시저명
+	(
+		매개변수 IN	데이터타입: = 타입,
+		매개변수 IN	데이터타입%TYPE;
+	)
+	IS
+		함수 내에서 사용할 변수, 상수 등을 선언
+	BEGIN
+		실행할 문장
+	END;
+	*/
+	
+	<호출>
+	CALL 프로시저명(값1, 값2)
+
+프로시저SQL
+	JOBS테이블에 INSERT를 해주는 함수(프로시저)만들기
+	
+PL/SQL문 (IF문)
+	1. IF 조건THEN 실행문;
+
+		END IF;
+
+	비교하고자 하는 조건이 여러개일 때
+	2. IF 조건 THEN 실행문;
+
+		ELSIF 조건 THEN 실행문;
+		...
+		ELSE 실행문;
+		END IF;
+
+	3. IF 조건 THEN 실행문;
+
+		ELSE 실행문;
+		END IF;
+--------------------------------------------------------
+
+시퀀스
+	테이블에 값을 추가할 때 자동으로 순차적인 정수값이 
+	들어가도록 설정해주는 문법
+
+	시퀀스 만드는법
+		CREATE SEQUENCE 시퀀스명
+		INCREMENT BY 1 --> 1씩 증가
+		START WITH 1 --> 1부터 카운팅
+		MINVALUE 1 --> 최소값
+		MAXVALUE 100; -->최대값
+		CACHE 20; --> 미리 20개의 공간을 만들어둔다
+
+	
+	
+		
+----------------
+	SYS AS SYSDBA
+	1234
+	SET SERVEROUTPUT ON; ->권한부여
+
